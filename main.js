@@ -16,7 +16,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.setZ(30);
 
-// Geometry
+// Torus
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({
   color: 0xff6347,
@@ -25,9 +25,18 @@ const material = new THREE.MeshStandardMaterial({
 const torus = new THREE.Mesh(geometry, material);
 scene.add(torus);
 
+// Moon
+const moonTexture = new THREE.TextureLoader().load("moon.jpg");
+const moonNormals = new THREE.TextureLoader().load("normal.jpg");
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({ map: moonTexture, normalMap: moonNormals })
+);
+scene.add(moon);
+
 // Light
 
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0xffffff, 100);
 pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
