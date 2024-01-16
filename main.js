@@ -19,7 +19,7 @@ camera.position.setZ(30);
 // Torus
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({
-  color: 0xff6347,
+  color: 0x9933cc,
 });
 
 const torus = new THREE.Mesh(geometry, material);
@@ -32,6 +32,10 @@ const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({ map: moonTexture, normalMap: moonNormals })
 );
+
+moon.position.z = 30;
+moon.position.setX(-10);
+
 scene.add(moon);
 
 // Light
@@ -43,10 +47,10 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
 // Helpers
-const lightHelper = new THREE.PointLightHelper(pointLight);
+/* const lightHelper = new THREE.PointLightHelper(pointLight);
 const gridHelper = new THREE.GridHelper(200, 50);
 scene.add(lightHelper);
-scene.add(gridHelper);
+scene.add(gridHelper); */
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -57,7 +61,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(sizes.width, sizes.height);
 
 // Controls
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 // Procedural geometry generation
 function addStar() {
@@ -86,8 +90,23 @@ function animate() {
   torus.rotation.z += 0.005;
   torus.rotation.x += 0.01;
 
-  controls.update();
+  //controls.update();
 
   renderer.render(scene, camera);
 }
 animate();
+
+// Scroll event
+
+function moveCamera() {
+  const topScreen = document.body.getBoundingClientRect().top;
+  camera.position.z = 30 + topScreen * -0.05;
+  camera.position.x = topScreen * -0.002;
+  camera.position.y = topScreen * -0.008;
+
+  moon.rotation.y += 0.05;
+  moon.rotation.z += 0.03;
+  moon.rotation.x += 0.05;
+}
+
+document.body.onscroll = moveCamera;
