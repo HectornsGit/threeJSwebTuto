@@ -1,14 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Rubik:wght@400;500;600;700&family=Uncial+Antiqua&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+ul {
+  list-style-type: none;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+img {
+  max-width: 2em;
+  max-height: 2em;
+}
+
 body {
   color: white;
   font-family: "Rubik";
   font-size: 16px;
 }
+
 canvas#bg {
   position: fixed;
   top: 0;
@@ -23,6 +38,7 @@ main {
   min-width: 50%;
   align-items: center;
 }
+
 blockquote,
 section {
   border: 1px solid rgb(195, 195, 195);
@@ -42,6 +58,7 @@ section {
   max-width: 70%;
   align-items: start;
 }
+
 blockquote {
   background: linear-gradient(
     90deg,
@@ -50,18 +67,23 @@ blockquote {
     rgba(245, 172, 222, 0.3) 100%
   );
 }
+
 blockquote > p {
   margin: 1em 2em;
 }
+
 p {
   margin: 0px 2em 1.4em 2em;
 }
+
 h2 {
   margin: 1em 1.5em;
 }
+
 h3 {
-  margin: 5px 20px;
+  margin: 0.1em 1em;
 }
+
 header {
   display: flex;
   flex-direction: column;
