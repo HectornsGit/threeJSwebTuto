@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // Scene
 const scene = new THREE.Scene();
 
@@ -16,14 +16,52 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.setZ(30);
 
+// Load a glTF resource
+const loader = new GLTFLoader();
+loader.load(
+  "DONUT.gltf",
+  function (gltf) {
+    const model = gltf.scene;
+
+    // This removes the random planes I exported
+    model.children = model.children.filter(
+      (child) => child.name !== "Plane" && child.name !== "Plane001"
+    );
+    // The materials weren't exported so I changed the Icing color manually.
+    const icing = model.children.filter((child) => child.name == "Icing")[0];
+    icing.material.color.set(0xff96e5);
+
+    model.position.setZ(20);
+    model.scale.set(35, 35, 35);
+
+    scene.add(model);
+
+    function animationDonut() {
+      requestAnimationFrame(animationDonut);
+      model.rotation.y += 0.01;
+      model.rotation.z += 0.005;
+      model.rotation.x += 0.01;
+      renderer.render(scene, camera);
+    }
+
+    animationDonut();
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
 // Torus
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+
+/* const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({
   color: 0x9933cc,
 });
 
 const torus = new THREE.Mesh(geometry, material);
 scene.add(torus);
+ */
 
 // Moon
 const moonTexture = new THREE.TextureLoader().load("moon.jpg");
@@ -83,18 +121,27 @@ const spaceTexture = new THREE.TextureLoader().load("space.jpg");
 scene.background = spaceTexture;
 
 // Animation
-function animate() {
+/* function animate() {
   requestAnimationFrame(animate);
 
   torus.rotation.y += 0.01;
   torus.rotation.z += 0.005;
   torus.rotation.x += 0.01;
 
-  //controls.update();
+  controls.update();
 
   renderer.render(scene, camera);
 }
-animate();
+animate(); */
+
+// Resize
+window.addEventListener("resize", () => {
+  sizes.height = window.innerHeight;
+  sizes.width = window.innerWidth;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+});
 
 // Scroll event
 
