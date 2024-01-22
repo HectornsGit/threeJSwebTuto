@@ -1,5 +1,5 @@
 import * as THREE from "three";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+//import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // Scene
 const scene = new THREE.Scene();
@@ -29,7 +29,7 @@ loader.load(
     );
     // The materials weren't exported so I changed the Icing color manually.
     const icing = model.children.filter((child) => child.name == "Icing")[0];
-    icing.material.color.set(0xff96e5);
+    icing.material.color.setHex(0xff96e5);
 
     model.position.setZ(20);
     model.scale.set(35, 35, 35);
@@ -78,11 +78,14 @@ scene.add(moon);
 
 // Light
 
-const pointLight = new THREE.PointLight(0xffffff, 100);
-pointLight.position.set(5, 5, 5);
+const pointLight = new THREE.PointLight(0xffffff, 180);
+pointLight.position.set(12, 18, 24);
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight);
+const backLight = new THREE.PointLight(0xffffff, 500);
+backLight.position.set(4, 2, -2);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(pointLight, ambientLight, backLight);
 
 // Helpers
 /* const lightHelper = new THREE.PointLightHelper(pointLight);
@@ -122,17 +125,12 @@ scene.background = spaceTexture;
 
 // Animation
 /* function animate() {
-  requestAnimationFrame(animate);
-
-  torus.rotation.y += 0.01;
-  torus.rotation.z += 0.005;
-  torus.rotation.x += 0.01;
-
-  controls.update();
-
-  renderer.render(scene, camera);
+  //requestAnimationFrame(animate);
+  //controls.update();
+  //renderer.render(scene, camera);
 }
-animate(); */
+animate();
+ */
 
 // Resize
 window.addEventListener("resize", () => {
