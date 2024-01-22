@@ -47,9 +47,9 @@ section {
   gap: 1.2em;
   background: linear-gradient(
     90deg,
-    rgba(247, 242, 246, 0.3) 0%,
+    rgba(175, 37, 37, 0.3) 0%,
     rgba(228, 35, 231, 0.3) 35%,
-    rgba(170, 255, 255, 0.3) 100%
+    rgba(39, 131, 131, 0.3) 100%
   );
   border-radius: 11px;
   font-family: "Rubik";
@@ -91,4 +91,14 @@ header {
   margin: 2em;
   color: white;
   z-index: 1000000;
+}
+.projects {
+  flex-direction: column;
+  align-items: start;
+}
+a {
+  color: rgb(94, 242, 94);
+}
+a:visited {
+  color: rgb(129, 237, 253);
 }
